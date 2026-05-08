@@ -1,0 +1,9 @@
+name: 'dbt_practise_snowflake'
+version: '1.0'
+config-version: 2
+
+profile: 'default'
+
+models:
+  dbt_practise_snowflake:
+    +materialized: view
