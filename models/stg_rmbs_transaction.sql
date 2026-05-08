@@ -7,5 +7,5 @@ select
     {{ parse_number('transaction_amount') }} as transaction_amount,
     {{ parse_date('transaction_date') }}     as transaction_date,
     {{ parse_date('reporting_period') }}     as reporting_period
-from DBT_LEARNING.RAW.RMBS_TRANSACTION;
+from DBT_LEARNING.RAW.RMBS_TRANSACTION
 
