@@ -1,0 +1,34 @@
+version: 2
+
+models:
+  - name: stg_rmbs_transaction
+    description: "Cleaned and standardised RMBS transaction data from RAW layer"
+
+    columns:
+      - name: transaction_id
+        description: "Unique identifier for each RMBS transaction"
+        tests:
+          - not_null
+          - unique
+
+      - name: loan_id
+        description: "Loan identifier linked to RMBS loan master"
+        tests:
+          - not_null
+
+      - name: transaction_type
+        description: "Type of transaction such as PRINCIPAL or INTEREST"
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['PRINCIPAL', 'INTEREST', 'FEE']
+
+      - name: transaction_amount
+        description: "Monetary amount of the transaction"
+        tests:
+          - not_null
+
+      - name: reporting_period
+        description: "Reporting period for the transaction"
+        tests:
+          - not_null
