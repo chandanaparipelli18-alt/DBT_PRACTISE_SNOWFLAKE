@@ -9,6 +9,5 @@ models:
 models:
   DBT_PRACTISE_SNOWFLAKE:
     marts:
-      finance:
         +materialized: view  
     
