@@ -1,4 +1,4 @@
-RMBS_DBT_Project:
+DBT_PRACTISE_SNOWFLAKE:
   target: dev
   outputs:
     dev:
