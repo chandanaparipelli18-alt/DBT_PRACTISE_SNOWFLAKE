@@ -1,4 +1,4 @@
-DBT_PRACTISE_SNOWFLAKE:
+dbt_practise_snowflake:
   target: dev
   outputs:
     dev:
