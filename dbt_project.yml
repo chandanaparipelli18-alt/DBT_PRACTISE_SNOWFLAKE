@@ -6,8 +6,6 @@ profile: 'RMBS_DBT_Project'
 models:
   dbt_practise_snowflake:
     +materialized: view
-models:
-  DBT_PRACTISE_SNOWFLAKE:
     marts:
-        +materialized: view  
+        +materialized: table  
     
