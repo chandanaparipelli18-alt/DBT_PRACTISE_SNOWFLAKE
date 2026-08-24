@@ -1,0 +1,72 @@
+git commands to push code fron vscode to git
+
+git init -b main --starts tracking files, A hidden folder is created: .git/--This folder stores all Git history locally
+
+git add . --Git looks only at files on local disk : This step = staging files.
+
+git commit -m "Initial RMBS dbt project" --“Save this snapshot permanently in local Git history.”( creates a local checkpoint,saves locally)
+
+git remote add origin https://github.com/chandanaparipelli18-alt/RMBS-Analytics-DBT.git --This local Git repo is connected to THIS GitHub repo.
+
+git push -u origin main --Send my local main branch commits to GitHub
+
+/*
+VS Code edits files,
+Git tracks folders,
+GitHub stores history,stores pushed files.
+Snowflake executes what’s in Git.*/
+
+
+
+
+test with dbt
+
+keys not null
+no duplicate business IDs
+valid categories
+relationships exist
+
+example:
+loan_id:
+  - not_null
+  - unique
+
+
+
+
+
+DBT Example:
+The macro is defined once:
+
+{% macro yes_no(expr) -%}case  when {{ expr }} is null then null  when lower(to_varchar({{ expr }}))
+ in ('1','true','t','yes','y') then 'Yes'  when lower(to_varchar({{ expr }})) in ('0','false','f','no','n') 
+then 'No'  else to_varchar({{ expr }})end{%- endmacro %}
+
+
+--macros/yes_no.sql(name)
+
+
+ 2. View 1: vw_rmbs_loan (uses macro)
+-- models/staging/stg_rmbs_loan.sql
+{{ config(materialized='view') }}
+
+select
+  loan_id,
+  {{ yes_no('hardship_flag') }}        as hardship_flag,
+  {{ yes_no('smsf_flag') }}             as smsf_flag,
+  {{ yes_no('nccp_indicator') }}        as nccp_indicator,
+  {{ yes_no('p_and_i_holiday') }}       as p_and_i_holiday
+from {{ source('raw','rmbs_loan') }}
+
+
+3. View 2: vw_rmbs_loancollateral (same macro, same logic)
+
+-- models/staging/stg_rmbs_loancollateral.sql
+{{ config(materialized='view') }}
+
+select
+  collateral_id,
+  {{ yes_no('mortgage_insurance_flag') }} as mortgage_insurance_flag,
+  {{ yes_no('offset_account_flag') }}     as offset_account_flag,
+  {{ yes_no('ineligible_loan_flag') }}    as ineligible_loan_flag
+from {{ source('raw','rmbs_loancollateral') }}

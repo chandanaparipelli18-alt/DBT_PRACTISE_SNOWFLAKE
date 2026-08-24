@@ -1,0 +1,29 @@
+name: DBT_PROJECT_SNOWFLAKE
+version: 1.0.0
+config-version: 2
+profile: DBT_PROJECT_SNOWFLAKE
+model-paths:
+  - models
+analysis-paths:
+  - analyses
+test-paths:
+  - tests
+seed-paths:
+  - seeds
+macro-paths:
+  - macros
+snapshot-paths:
+  - snapshots
+models:
+  DBT_PROJECT_SNOWFLAKE:
+    staging:
+      +materialized: view
+    marts:
+      +materialized: table
+
+seeds:
+  DBT_PROJECT_SNOWFLAKE:
+    +quote_columns: false
+      
+  
+

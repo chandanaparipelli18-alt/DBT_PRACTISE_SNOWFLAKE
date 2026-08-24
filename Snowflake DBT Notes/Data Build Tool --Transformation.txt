@@ -1,0 +1,147 @@
+--Data Build Tool --Transformation frame work
+--It is used to transform the data already loaded into DW
+--Used for Data Transformation, Not a ETL Tool 
+ELT = T
+Raw Data = DBT =Transformed Data
+
+DBT allows to write modular 
+
+------------------------------------------------------------------------------------
+Why DBT:
+Modularity-- no static code ,it will use dynamic codes
+templating-- jinga
+
+
+What dbt actually does (core part)
+ Snapshot
+Used when you want:
+Track history of changes
+Slowly Changing Dimensions (SCD Type 2)
+
+
+Transform
+This is dbt’s main job:
+Clean data
+Join tables
+Apply business logic
+Build marts
+
+Test
+Automated data quality checks:
+not null
+unique
+accepted_values
+Custom tests
+
+
+Deploy
+This means:
+
+Run dbt models via:
+dbt Cloud
+CI/CD
+Scheduler (Airflow / GitHub Actions / Snowflake tasks)
+Deploy = “run transformations in production safely”
+
+Document
+dbt auto‑generates:
+Model descriptions
+Column definitions
+Lineage graph
+You get a living Confluence for your warehouse.
+
+Version Control
+GitHub / Bitbucket
+Pull Requests
+Code reviews
+
+Logging
+Which model ran
+Row counts
+Failures
+Useful for production debugging.
+
+Alerting
+Test failures
+Model failures
+SLA breaks
+
+You can plug alerts into:
+Email
+Slack
+Teams
+
+
+
+-------------------------------------------------------------------------------------------------
+
+Jinja = Blueprint / template
+jinga used in Macros
+dbt compile = Build the final SQL
+Snowflake = Executes finished SQL
+
+----------------------------------------------------------------------------------------------------------
+
+
+DBT Platforms:
+*DBT Core: CLI Tool , Open Source (core engine of DBT)
+*DBT Cloud: With more advanced and manageable features than DBT Core
+(DBT Core is same as apache spark and DBT Cloud is as Data Bricks
+ similar to data bricks build on  apache spark,  DBT Cloud is build on DBT Core which is open source )
+*DBT Canvas:  non coding (drag and drop feature)
+
+------------------------------------------------------------------------------------------------------------
+
+
+Advantages of DBT:
+Easy Testing
+Reusable Code  (Macros & JINJA )
+CI CD Integration
+Data Lineage 
+Documentation(dbt auto-generates:
+
+table docs
+column descriptions
+lineage graph (source → final))
+---------------------------------------------------------------------------------------------------------------------
+
+**flow can be 
+
+ADLS / Source
+   ↓
+Stored Procedures (ingestion, validation)
+   ↓
+RAW tables (Iceberg)
+   ↓
+dbt staging (clean + standardise)
+   ↓
+dbt marts (business models, KPIs)
+   ↓
+Power BI / reports
+
+-------------------------------------------------------------------------------------------------------------
+
+DBT will not have any compute resources its just transforming layer , it will use the computing power from the platform's resources (snowflake,databricks,redshift.....)
+
+Model -- A SQL SELECT → table/view
+Staging: modelClean & standardise raw data
+Mart: Business‑ready dataset
+Macro :Reusable SQL logic (functions)
+
+note:
+models/ is mandatory.
+models/marts/ is optional but highly recommended as projects grow.
+
+
+dbt Macros (reusable logic — like functions)
+What macros are
+Macros are reusable SQL logic blocks, written once and used everywhere.
+They behave like functions, but generate SQL at compile time.
+
+
+Jinga:
+{{ }} or {% %} → in scripts that is Jinja
+
+ref{} is a dbt function used to reference another dbt model and define dependencies, execution order, and lineage.
+
+

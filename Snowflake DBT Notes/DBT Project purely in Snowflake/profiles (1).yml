@@ -1,0 +1,11 @@
+DBT_PROJECT_SNOWFLAKE:
+  target: dev
+  outputs:
+    dev:
+      type: snowflake
+      user: ACCOUNTADMIN
+      role: ACCOUNTADMIN
+      warehouse: COMPUTE_WH
+      database: DBT_LEARNING
+      schema: RAW
+      threads: 8
